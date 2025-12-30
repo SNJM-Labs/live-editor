@@ -6,6 +6,24 @@
   <title>Live Editor</title>
 </head>
 <body>
-  <textarea rows="20" cols="60" placeholder="Start typing..."></textarea>
+  <textarea id="textarea" rows="20" cols="60" placeholder="Start typing..."></textarea>
+
+  <!-- Loads the script to handle requests and responses-->
+   <script src="/socket.io/socket.io.js"></script> 
+   <script>
+
+      const socket = io();
+
+      // Gets the content from the textarea and sends it to the server
+      const textarea = document.getElementById('textarea');
+      textarea.addEventListener("input", (e) => {
+        socket.emit('content change', e.target.value);
+      });
+
+      // Updates the textarea with the new content
+      socket.on('update content', (msg) => {
+        textarea.value = msg;
+      });
+   </script>
 </body>
 </html>
