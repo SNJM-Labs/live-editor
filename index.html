@@ -4,8 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Live Editor</title>
+
+  <style>
+
+    body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    #header { 
+      text-align: center; 
+    }
+
+    #textarea {
+      width: 100%;
+      height: 150px;
+      padding: 12px;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      background-color: #f8f8f8;
+      font-size: 16px;
+      resize: none;
+    }
+  </style>
 </head>
 <body>
+
+  <h3 id="header">You are user: </h3>
   <textarea id="textarea" rows="20" cols="60" placeholder="Start typing..."></textarea>
 
   <!-- Loads the script to handle requests and responses-->
@@ -13,9 +38,15 @@
    <script>
 
       const socket = io();
+      const textarea = document.getElementById('textarea');
+      const header = document.getElementById('header');
+
+      // Sets the name of the user
+      socket.on('connect', () => {
+        header.append(socket.id);
+      });
 
       // Gets the content from the textarea and sends it to the server
-      const textarea = document.getElementById('textarea');
       textarea.addEventListener("input", (e) => {
         socket.emit('content change', e.target.value);
       });
