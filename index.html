@@ -31,15 +31,18 @@
 <body>
 
   <h3 id="header">You are user: </h3>
-  <textarea id="textarea" rows="20" cols="60" placeholder="Start typing..."></textarea>
+  <textarea id="textarea1" rows="20" cols="60" placeholder="Start typing..."></textarea>
+  <textarea id="textarea2" rows="20" cols="60" placeholder="Start typing..."></textarea>
 
   <!-- Loads the script to handle requests and responses-->
    <script src="/socket.io/socket.io.js"></script> 
    <script>
 
       const socket = io();
-      const textarea = document.getElementById('textarea');
       const header = document.getElementById('header');
+
+      const textarea1 = document.getElementById('textarea1');
+      const textarea2 = document.getElementById('textarea2');
 
       // Sets the name of the user
       socket.on('connect', () => {
@@ -47,13 +50,19 @@
       });
 
       // Gets the content from the textarea and sends it to the server
-      textarea.addEventListener("input", (e) => {
-        socket.emit('content change', e.target.value);
+      textarea1.addEventListener("input", (e) => {
+        socket.emit('content change 1', e.target.value);
+      });
+      textarea2.addEventListener("input", (e) => {
+        socket.emit('content change 2', e.target.value);
       });
 
       // Updates the textarea with the new content
-      socket.on('update content', (msg) => {
-        textarea.value = msg;
+      socket.on('update content 1', (msg) => {
+        textarea1.value = msg;
+      });
+      socket.on('update content 2', (msg) => {
+        textarea2.value = msg;
       });
    </script>
 </body>
