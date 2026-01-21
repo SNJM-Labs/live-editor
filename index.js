@@ -11,16 +11,25 @@ const io = new Server(server);
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+let content = "";
+
 // Response if on the '/' route
 app.get('/', (req, res) => {
     res.sendFile(join(__dirname, 'index.html'));
 });
 
-// Emits new content to all clients
 io.on('connection', (socket) => {
+
+    // Sets the content for the client when they first join
+    socket.emit('update content', content);
+
     socket.on('content change', (msg) => {
-        console.log('Content: ' + msg);
-        io.emit('update content', msg);
+        // Sets the message as the content
+        content = msg;
+
+        // Sends the content to all clients
+        console.log('Content: ' + content);
+        io.emit('update content', content);
     });
 });
 
