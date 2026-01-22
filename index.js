@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
         contents[msg.id] = msg.val;
 
         // Sends the content to all clients
-        console.log('Content: ' + msg);
+        console.log('Content: ', msg);
         io.emit('update content', msg);
     });
 });
