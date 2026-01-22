@@ -11,8 +11,11 @@ const io = new Server(server);
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-let content1 = "";
-let content2 = "";
+let contents = {
+    text1: "",
+    text2: "",
+    text3: ""
+};
 
 // Response if on the '/' route
 app.get('/', (req, res) => {
@@ -22,25 +25,17 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
 
     // Sets the content for the client when they first join
-    socket.emit('update content 1', content1);
-    socket.emit('update content 2', content2);
-
-    socket.on('content change 1', (msg) => {
-        // Sets the message as the content
-        content1 = msg;
-
-        // Sends the content to all clients
-        console.log('Content1: ' + content1);
-        io.emit('update content 1', content1);
+    Object.keys(contents).forEach(id => {
+        socket.emit('update content', { id: id, val: contents[id] });
     });
 
-    socket.on('content change 2', (msg) => {
+    socket.on('content change', (msg) => {
         // Sets the message as the content
-        content2 = msg;
+        contents[msg.id] = msg.val;
 
         // Sends the content to all clients
-        console.log('Content2: ' + content2);
-        io.emit('update content 2', content2);
+        console.log('Content: ' + msg);
+        io.emit('update content', msg);
     });
 });
 
