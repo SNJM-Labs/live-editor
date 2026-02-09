@@ -72,13 +72,17 @@
 
       const socket = io();
       const header = document.getElementById('header');
+      
+      const urlParams = new URLSearchParams(window.location.search);
+      const roomId = urlParams.get('room');   // Extracts "12345"
+      const username = urlParams.get('user'); // Extracts "pd"
 
       // Selects the textareas from editor class
       const editors = document.querySelectorAll('.editor');
 
       // Sets the name of the user
       socket.on('connect', () => {
-        header.append(socket.id);
+        header.innerText = `User: ${username} (Socket ID: ${socket.id}) (Room: ${roomId})`;
       });
 
       // Gets the content from the textarea and sends it to the server
