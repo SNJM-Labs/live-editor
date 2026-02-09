@@ -24,6 +24,7 @@
     #header { 
       margin-top: 20px;
       color: white;
+      text-align: center;
     }
 
     .editor-container {
@@ -82,7 +83,7 @@
 
       // Sets the name of the user
       socket.on('connect', () => {
-        header.innerText = `User: ${username} (Socket ID: ${socket.id}) (Room: ${roomId})`;
+        header.innerText = `User: ${username} \n Socket ID: ${socket.id} \n Room: ${roomId}`;
       });
 
       // Gets the content from the textarea and sends it to the server
