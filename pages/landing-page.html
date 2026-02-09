@@ -76,13 +76,23 @@
         Live Editor
       </h1>
       
-      <form>
-          <input type="text" id="username" name="username" placeholder="Username">
+      <form id="joinForm">
+          <input type="text" id="username" name="username" placeholder="Username" required>
           <br><br>
-          <input type="text" id="room-id" name="room-id" placeholder="Room ID">
+          <input type="text" id="room-id" name="room-id" placeholder="Room ID" required>
           <br><br>
           <input type="submit" value="Join">
       </form>
+
+      <script>
+        document.getElementById('joinForm').onsubmit = (e) => {
+          e.preventDefault();
+          const user = document.getElementById('username').value;
+          const room = document.getElementById('room-id').value;
+          // Redirects to /editor?room=xyz&user=abc
+          window.location.href = `/editor?room=${room}&user=${user}`;
+        };
+      </script>
     </div>
   </div>
 </body>
