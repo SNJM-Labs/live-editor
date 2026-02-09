@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Editor</title>
+
+  <style>
+
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .center {
+      background: white;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 300px;
+    }
+
+    #header { 
+      margin-top: 0;
+      color: #333;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #2a5298;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      background: #2a5298;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    input[type="submit"]:hover {
+      background: #1e3c72;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="center">
+    <div>
+      <h1 id="header">
+        SNJM Labs 
+        <br/>
+        Live Editor
+      </h1>
+      
+      <form id="joinForm">
+          <input type="text" id="username" name="username" placeholder="Username" required>
+          <br><br>
+          <input type="text" id="room-id" name="room-id" placeholder="Room ID" required>
+          <br><br>
+          <input type="submit" value="Join">
+      </form>
+
+      <script>
+        document.getElementById('joinForm').onsubmit = (e) => {
+          e.preventDefault();
+          const user = document.getElementById('username').value;
+          const room = document.getElementById('room-id').value;
+          // Redirects to /editor?room=xyz&user=abc
+          window.location.href = `/editor?room=${room}&user=${user}`;
+        };
+      </script>
+    </div>
+  </div>
+</body>

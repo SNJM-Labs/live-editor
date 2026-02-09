@@ -12,14 +12,17 @@ const io = new Server(server);
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 let contents = {
-    text1: "",
-    text2: "",
-    text3: ""
+    textarea1: "",
+    textarea2: "",
+    textarea3: ""
 };
 
 // Response if on the '/' route
 app.get('/', (req, res) => {
-    res.sendFile(join(__dirname, 'index.html'));
+    res.sendFile(join(__dirname, '\\pages\\landing-page.html'));
+});
+app.get('/editor', (req, res) => {
+    res.sendFile(join(__dirname, '\\pages\\index.html'));
 });
 
 io.on('connection', (socket) => {
