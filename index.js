@@ -19,7 +19,7 @@ let contents = {
 
 // Response if on the '/' route
 app.get('/', (req, res) => {
-    res.sendFile(join(__dirname, 'index.html'));
+    res.sendFile(join(__dirname, '\\pages\\landing-page.html'));
 });
 
 io.on('connection', (socket) => {
