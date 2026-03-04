@@ -86,23 +86,30 @@
         Live Editor
       </h1>
       
-      <form id="joinForm">
+      <form id="createForm">
           <input type="text" id="username" name="username" placeholder="Username" required>
           <br><br>
-          <input type="text" id="room-name" name="room-name" placeholder="Room Name" required>
-          <br><br>
           <input type="submit" value="Create Room">
-          <br><br>
+      </form>
+
+      <p>OR</p>
+
+      <form id="joinForm">
           <input type="submit" value="Join Room">
       </form>
 
       <script>
+        document.getElementById('createForm').onsubmit = (e) => {
+          e.preventDefault();
+
+          // Adds user to the URL params
+          const user = document.getElementById('username').value;
+          window.location.href = `/create-room-action?&user=${user}`;
+        };
+
         document.getElementById('joinForm').onsubmit = (e) => {
           e.preventDefault();
-          const user = document.getElementById('username').value;
-          const room = document.getElementById('room-id').value;
-          // Redirects to /editor?room=xyz&user=abc
-          window.location.href = `/editor?room=${room}&user=${user}`;
+          window.location.href = '/';
         };
       </script>
     </div>

@@ -81,7 +81,7 @@
   <div class="center">
     <div>
       <h1 id="header">
-        SNJM Labs 
+        SNJM Labs
         <br/>
         Live Editor
       </h1>
@@ -91,8 +91,12 @@
           <br><br>
           <input type="text" id="room-id" name="room-id" placeholder="Room ID" required>
           <br><br>
-          <input type="submit" value="Join">
-          <br><br>
+          <input type="submit" value="Join Room">
+      </form>
+
+      <p>OR</p>
+
+      <form id="createForm">
           <input type="submit" value="Create Room">
       </form>
 
@@ -103,6 +107,11 @@
           const room = document.getElementById('room-id').value;
           // Redirects to /editor?room=xyz&user=abc
           window.location.href = `/editor?room=${room}&user=${user}`;
+        };
+
+        document.getElementById('createForm').onsubmit = (e) => {
+          e.preventDefault();
+          window.location.href = '/create-room'
         };
       </script>
     </div>

@@ -11,11 +11,7 @@ const io = new Server(server);
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-let contents = {
-    textarea1: "",
-    textarea2: "",
-    textarea3: ""
-};
+let rooms = {}
 
 // Response if on the '/' route
 app.get('/', (req, res) => {
@@ -27,21 +23,42 @@ app.get('/create-room', (req, res) => {
 app.get('/editor', (req, res) => {
     res.sendFile(join(__dirname, '\\pages\\index.html'));
 });
+app.get('/create-room-action', (req, res) => {
+
+    // Gets room Id and user
+    const roomId = Math.random().toString(36).substring(2, 8);
+    const user = req.query.user;
+
+    // Creates new room
+    rooms[roomId] = {
+        textarea1: "",
+        textarea2: "",
+        textarea3: ""
+    };
+
+    // Redirects to main page
+    res.redirect(`/editor?room=${roomId}&user=${user}`);
+});
 
 io.on('connection', (socket) => {
 
+    // Joins rooms
+    const roomId = socket.handshake.query.roomId;
+    socket.join(roomId);
+
     // Sets the content for the client when they first join
-    Object.keys(contents).forEach(id => {
-        socket.emit('update content', { id: id, val: contents[id] });
+    Object.keys(rooms[roomId]).forEach(id => {
+        socket.emit('update content', { id: id, val: rooms[roomId][id] });
     });
 
     socket.on('content change', (msg) => {
         // Sets the message as the content
-        contents[msg.id] = msg.val;
+        rooms[roomId][msg.id] = msg.val;
 
         // Sends the content to all clients
-        console.log('Content: ', msg);
-        io.emit('update content', msg);
+        io.to(roomId).emit('update content', msg);
+
+        console.log(rooms)
     });
 });
 
