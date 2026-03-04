@@ -19,7 +19,10 @@ let contents = {
 
 // Response if on the '/' route
 app.get('/', (req, res) => {
-    res.sendFile(join(__dirname, '\\pages\\landing-page.html'));
+    res.sendFile(join(__dirname, '\\pages\\login.html'));
+});
+app.get('/create-room', (req, res) => {
+    res.sendFile(join(__dirname, '\\pages\\create-room.html'));
 });
 app.get('/editor', (req, res) => {
     res.sendFile(join(__dirname, '\\pages\\index.html'));
