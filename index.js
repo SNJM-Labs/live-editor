@@ -56,8 +56,9 @@ io.on('connection', (socket) => {
         rooms[roomId][msg.id] = msg.val;
 
         // Sends the content to all clients
-        console.log('Content: ', msg);
-        io.emit('update content', msg);
+        io.to(roomId).emit('update content', msg);
+
+        console.log(rooms)
     });
 });
 

@@ -110,6 +110,7 @@
       // Updates the textarea with the new content
       socket.on('update content', (msg) => {
         const targetBox = document.getElementById(msg.id);
+        console.log(targetBox);
         targetBox.value = msg.val;
       });
    </script>
