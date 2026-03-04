@@ -80,11 +80,16 @@
    <script src="/socket.io/socket.io.js"></script> 
    <script>
 
-      const socket = io();
+      // Sends room id as a parameter for socket
+      const roomId = new URLSearchParams(window.location.search).get('room')
+      const socket = io({
+        query: {
+          roomId: roomId
+        }
+      });
       const header = document.getElementById('header');
       
       const urlParams = new URLSearchParams(window.location.search);
-      const roomId = urlParams.get('room');   // Extracts "12345"
       const username = urlParams.get('user'); // Extracts "pd"
 
       // Selects the textareas from editor class
@@ -92,7 +97,7 @@
 
       // Sets the name of the user
       socket.on('connect', () => {
-        header.innerText = `User: ${username} \n Socket ID: ${socket.id} \n Room: ${roomId}`;
+        header.innerText = `User: ${username} \n Room: ${roomId}`;
       });
 
       // Gets the content from the textarea and sends it to the server
