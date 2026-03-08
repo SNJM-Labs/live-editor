@@ -26,7 +26,7 @@ app.get('/editor', (req, res) => {
 app.get('/create-room-action', (req, res) => {
 
     // Gets room Id and user
-    const roomId = Math.random().toString(36).substring(2, 8);
+    const roomId = Math.random().toString(10).substring(2, 8);
     const user = req.query.user;
 
     // Creates new room
